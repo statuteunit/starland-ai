@@ -1,0 +1,11 @@
+{
+  "routes": [
+    "login",
+    "register",
+    "dashboard",
+    "notes",
+    "flashcards",
+    "chat",
+    "community"
+  ]
+}
