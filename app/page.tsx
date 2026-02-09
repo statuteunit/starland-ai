@@ -12,8 +12,8 @@ export default function Home() {
     router.replace(token ? "/dashboard" : "/login");
   }, [router]);
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-dark)] text-[var(--text-primary)]">
-      <span className="text-sm text-[var(--text-muted)]">Redirecting...</span>
+    <div className="flex min-h-screen items-center justify-center bg-primary-2 text-primary-1">
+      <span className="text-sm text-muted-1">Redirecting...</span>
     </div>
   );
 }

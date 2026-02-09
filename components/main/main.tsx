@@ -11,7 +11,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const toggleSidebar = () => setIsCollapsed((v) => !v);
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-transparent">
+    <div className="flex h-screen w-full overflow-hidden bg-primary-2">
       <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
       <main className="flex-1 overflow-y-auto relative h-full p-4 pb-20 sm:p-8 sm:pb-8">
         {children}
