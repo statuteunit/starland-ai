@@ -45,7 +45,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4 # 稳定的部署action，企业常用
         with:
           # 部署的源文件目录：项目构建后的dist目录（固定，和本地build结果一致）
-          publish_dir: ./dist
+          publish_dir: ./out
           # 自动生成的Git提交信息，自定义即可
           commit_message: 'ci: auto deploy [skip ci]'
           # 部署的密钥：GitHub自动生成的TOKEN，无需手动填，后续配置权限会自动注入
