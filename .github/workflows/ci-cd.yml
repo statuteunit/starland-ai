@@ -1,0 +1,55 @@
+# 工作流名称，GitHub页面会显示这个名字，自定义即可
+name: Frontend CI/CD Workflow
+# 触发条件：哪些操作会启动这个CI/CD工作流
+on:
+  # 1. 推送到main分支时触发（GitHub默认主分支，老版本是master，改这里要和自己的分支一致）
+  push:
+    tags:
+      - 'test.*' # 匹配所有test.开头的标签（如test.20260209153020）
+  # 2. 手动在GitHub页面触发（可选，方便测试，不用每次都提交代码）
+  workflow_dispatch:
+
+# 工作流的执行任务，一个jobs可以包含多个step（步骤）
+jobs:
+  # 任务名称：构建和部署（自定义）
+  build-and-deploy:
+    # 运行的服务器环境：GitHub提供的Ubuntu最新版（企业常用Linux，Windows/macOS可换，见注释）
+    runs-on: ubuntu-latest
+    # 任务的具体步骤，按顺序执行，一步失败则整个工作流终止
+    steps:
+      # 步骤1：拉取GitHub仓库中的代码到CI服务器（官方action，直接用）
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 步骤2：安装Node.js环境（官方action，指定LTS版本，和本地一致）
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0 # 选Node.js LTS版本，比如18/20，本地node -v看自己的版本
+          cache: 'npm' # 缓存npm依赖，提升下次CI速度（核心优化，企业必加）
+
+      # 步骤3：安装项目依赖（和本地执行npm install一样）
+      - name: Install dependencies
+        run: npm install # 若用yarn/pnpm，改这里为yarn install / pnpm install
+
+      # 步骤4：CI核心-执行ESLint代码检查（前面配置的npm run lint）
+      - name: Lint code with ESLint
+        run: npm run lint # 有语法/规范错误则直接失败，终止后续步骤
+
+      # 步骤5：CI核心-构建前端项目（生成静态dist目录）
+      - name: Build project
+        run: npm run build # Vite/Vue-CLI/Create-React-App都是这个命令，生成dist目录
+
+      # 步骤6：CD核心-将构建后的dist目录部署到GitHub Pages（官方+社区成熟action，直接用）
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4 # 稳定的部署action，企业常用
+        with:
+          # 部署的源文件目录：项目构建后的dist目录（固定，和本地build结果一致）
+          publish_dir: ./dist
+          # 自动生成的Git提交信息，自定义即可
+          commit_message: 'ci: auto deploy [skip ci]'
+          # 部署的密钥：GitHub自动生成的TOKEN，无需手动填，后续配置权限会自动注入
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run unit tests
+        run : npm run test
