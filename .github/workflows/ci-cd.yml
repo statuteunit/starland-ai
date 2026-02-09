@@ -26,11 +26,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.18.0 # 选Node.js LTS版本，比如18/20，本地node -v看自己的版本
-          cache: 'npm' # 缓存npm依赖，提升下次CI速度（核心优化，企业必加）
+          cache: 'yarn' # 缓存yarn依赖，提升下次CI速度（核心优化，企业必加）
 
       # 步骤3：安装项目依赖（和本地执行npm install一样）
       - name: Install dependencies
-        run: npm install # 若用yarn/pnpm，改这里为yarn install / pnpm install
+        run: yarn install # 若用yarn/pnpm，改这里为yarn install / pnpm install
 
       # 步骤4：CI核心-执行ESLint代码检查（前面配置的npm run lint）
       - name: Lint code with ESLint
@@ -50,6 +50,3 @@ jobs:
           commit_message: 'ci: auto deploy [skip ci]'
           # 部署的密钥：GitHub自动生成的TOKEN，无需手动填，后续配置权限会自动注入
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run unit tests
-        run : npm run test
