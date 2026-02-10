@@ -17,7 +17,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex h-screen w-full overflow-hidden bg-dark-secondary">
       <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
-      <main className="flex-1 overflow-y-auto relative h-full py-8 px-6 pb-20 lg:py-10" onClick={closeSidebar}>
+      <main className="flex-1 overflow-y-auto relative h-full py-10 px-6 pb-20 lg:py-20" onClick={closeSidebar}>
         {children}
       </main>
     </div>

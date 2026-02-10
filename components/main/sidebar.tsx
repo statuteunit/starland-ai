@@ -10,10 +10,8 @@ import {
   LogOut,
   MessageSquare,
   PanelLeft,
-  Menu,
 } from "lucide-react";
 import { cn } from "@/utils/tools";
-import Image from 'next/image'
 
 type SidebarProps = {
   isCollapsed: boolean;
@@ -39,59 +37,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
     { label: "Community", icon: Users, path: "/community" },
   ];
 
-  const asideBase =
-    "w-fit h-full relative flex flex-col bg-[rgba(15,23,42,0.4)] backdrop-blur-[20px] border-r border-glass-border z-50 p-6 transition-[width] duration-300 ease-in-out flex-shrink-0 translate-x-[-100%] sm:translate-x-0";
-  const asideCollapsed = isCollapsed ? "px-3" : "";
-
-  const toggleBtn =
-    "absolute right-[-12px] top-1/2 -translate-y-1/2 w-6 h-6 bg-dark border border-glass-border rounded-full text-secondary flex items-center justify-center cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] z-[100] transition-all duration-200 hover:text-primary-accent hover:bg-primary-gradient";
-
-  const logo = [
-    "flex items-center gap-3 mt-6 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap",
-    isCollapsed ? "justify-center px-0" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-  const logoIcon =
-    "w-8 h-8 bg-primary-gradient rounded-[8px] shadow-[0_4px_12px_rgba(139,92,246,0.3)]";
-  const logoText =
-    "text-xl font-bold text-primary bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent";
-
-  const nav = "flex flex-col gap-2 flex-1";
-  const navItemBase =
-    "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium transition-all duration-200 justify-start";
-  const navItemCollapsed = isCollapsed ? "justify-center !py-3 !px-0" : "";
-  const navItemHover = "hover:[background:rgba(255,255,255,0.05)] hover:text-primary";
-  const navItemActive = "bg-[rgba(139,92,246,0.15)] text-primary-accent";
-
-  const footer = "pt-4 pb-6 border-t border-[rgba(255,255,255,0.05)] mt-auto";
-  const logoutBtnBase =
-    "flex items-center gap-3 w-full px-4 py-3 bg-transparent border-0 text-muted text-[0.9rem] cursor-pointer rounded-[8px] transition-all duration-200";
   const logoutBtnCollapsed = isCollapsed ? "justify-center !py-3 !px-0" : "";
-  const logoutBtnHover = "hover:text-danger-accent hover:bg-[rgba(239,68,68,0.1)]";
 
   return (
     <>
       {/* 移动端 */}
       <div className="relative lg:hidden">
-        <Menu onClick={toggleSidebar}
-          className={`${isCollapsed ? 'block' : 'hidden'} w-6 h-6 text-secondary hover:text-primary-accent hover:bg-primary-gradient absolute left-4 top-4 z-[100]`} />
-        {!isCollapsed && (<aside className="transition-[width] duration-300 ease-in-out px-6 border-r border-glass-border">
-          <div className={logo}>
-            <div className={logoIcon} />
-            {!isCollapsed && <span className={logoText}>StarLand AI</span>}
+        <PanelLeft onClick={toggleSidebar}
+          className={`${isCollapsed ? 'block' : 'hidden'} w-6 h-6 text-secondary absolute left-4 top-4 z-[100]`} />
+        {!isCollapsed && (<aside className="px-6 border-r border-glass-border">
+          <div className={`flex items-center gap-3 mt-6 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap ${isCollapsed ? "justify-center px-0" : ""}`}>
+            <div className={"w-8 h-8 bg-primary-gradient rounded-[8px] shadow-[0_4px_12px_rgba(139,92,246,0.3)]"} />
+            {!isCollapsed && <span className={"text-xl font-bold text-primary bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent"}>StarLand AI</span>}
           </div>
           <nav className={"flex flex-col gap-2 flex-1"}>
             {navItems.map((item) => {
               const isActive = pathname === item.path;
-              const ItemIcon = item.icon;
               return (
                 <Link
                   key={item.path}
                   href={item.path}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium transition-all duration-200 justify-start",
-                    isActive ? navItemActive : "",
+                    "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium justify-start",
+                    isActive ? "bg-[rgba(139,92,246,0.15)] text-primary-accent" : "",
                   )}
                 >
                   {!isCollapsed && <span>{item.label}</span>}
@@ -99,27 +67,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
               );
             })}
           </nav>
-          <div className={footer}>
-        <button
-          onClick={handleLogout}
-          className={[logoutBtnBase, logoutBtnCollapsed, logoutBtnHover].join(" ")}
-        >
-          <LogOut size={20} />
-          {!isCollapsed && <span>Sign Out</span>}
-        </button>
-      </div>
+          <div className={"pt-4 pb-6 border-t border-[rgba(255,255,255,0.05)] mt-auto"}>
+            <button
+              onClick={handleLogout}
+              className={cn("flex items-center gap-3 w-full px-4 py-3 bg-transparent border-0 text-muted text-[0.9rem] cursor-pointer rounded-[8px]", logoutBtnCollapsed)}
+            >
+              <LogOut size={20} />
+              {!isCollapsed && <span>Sign Out</span>}
+            </button>
+          </div>
         </aside>)}
       </div>
       {/* pc端导航栏 */}
-      <aside className={"hidden lg:flex relative w-fit h-full flex-col bg-[rgba(15,23,42,0.4)] backdrop-blur-[20px] border-r border-glass-border z-50 p-6 transition-[width] duration-300 ease-in-out flex-shrink-0"}>
-        <PanelLeft className="absolute top-6 right-[-40px] w-6 h-6 bg-dark border border-glass-border rounded-full text-secondary cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] transition-all duration-200 hover:text-primary-accent hover:bg-primary-gradient"
+      <aside className={"hidden lg:flex relative w-fit h-full flex-col bg-[rgba(15,23,42,0.4)] backdrop-blur-[20px] border-r border-glass-border z-50 p-6 flex-shrink-0"}>
+        <PanelLeft className="absolute top-6 right-[-40px] w-6 h-6 bg-dark border border-glass-border rounded-full text-secondary cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] hover:text-primary-accent hover:bg-primary-gradient"
           onClick={toggleSidebar}
         />
-        <div className={logo}>
-          <div className={logoIcon} />
-          {!isCollapsed && <span className={logoText}>StarLand AI</span>}
+        <div className={`flex items-center gap-3 mt-6 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap ${isCollapsed ? "justify-center px-0" : ""}`}>
+          <div className={"w-8 h-8 bg-primary-gradient rounded-[8px] shadow-[0_4px_12px_rgba(139,92,246,0.3)]"} />
+          {!isCollapsed && <span className={"text-xl font-bold text-primary bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent"}>StarLand AI</span>}
         </div>
-        <nav className={nav}>
+        <nav className={"flex flex-col gap-2 flex-1"}>
           {navItems.map((item) => {
             const isActive = pathname === item.path;
             const ItemIcon = item.icon;
@@ -128,8 +96,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
                 key={item.path}
                 href={item.path}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium transition-all duration-200 justify-start",
-                  isActive ? navItemActive : "",
+                  "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium justify-start",
+                  isActive ? "bg-[rgba(139,92,246,0.15)] text-primary-accent" : "",
                 )}
               >
                 <ItemIcon
@@ -141,15 +109,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
             );
           })}
         </nav>
-        <div className={footer}>
-        <button
-          onClick={handleLogout}
-          className={[logoutBtnBase, logoutBtnCollapsed, logoutBtnHover].join(" ")}
-        >
-          <LogOut size={20} />
-          {!isCollapsed && <span>Sign Out</span>}
-        </button>
-      </div>
+        <div className={"pt-4 pb-6 border-t border-[rgba(255,255,255,0.05)] mt-auto"}>
+          <button
+            onClick={handleLogout}
+            className={cn("flex items-center gap-3 w-full px-4 py-3 bg-transparent border-0 text-muted text-[0.9rem] cursor-pointer rounded-[8px] transition-all duration-200 hover:text-danger-accent hover:bg-[rgba(239,68,68,0.1)]", logoutBtnCollapsed)}
+          >
+            <LogOut size={20} />
+            {!isCollapsed && <span>Sign Out</span>}
+          </button>
+        </div>
       </aside>
     </>
   );
