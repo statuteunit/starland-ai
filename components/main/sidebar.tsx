@@ -9,9 +9,11 @@ import {
   Users,
   LogOut,
   MessageSquare,
-  ChevronLeft,
-  ChevronRight,
+  PanelLeft,
+  Menu,
 } from "lucide-react";
+import { cn } from "@/utils/tools";
+import Image from 'next/image'
 
 type SidebarProps = {
   isCollapsed: boolean;
@@ -38,14 +40,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
   ];
 
   const asideBase =
-    "w-[260px] h-full relative flex flex-col bg-[rgba(15,23,42,0.4)] backdrop-blur-[20px] border-r border-glass-border z-50 p-6 transition-[width] duration-300 ease-in-out flex-shrink-0 translate-x-[-100%] sm:translate-x-0";
-  const asideCollapsed = isCollapsed ? "w-20 px-3" : "";
+    "w-fit h-full relative flex flex-col bg-[rgba(15,23,42,0.4)] backdrop-blur-[20px] border-r border-glass-border z-50 p-6 transition-[width] duration-300 ease-in-out flex-shrink-0 translate-x-[-100%] sm:translate-x-0";
+  const asideCollapsed = isCollapsed ? "px-3" : "";
 
   const toggleBtn =
     "absolute right-[-12px] top-1/2 -translate-y-1/2 w-6 h-6 bg-dark border border-glass-border rounded-full text-secondary flex items-center justify-center cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] z-[100] transition-all duration-200 hover:text-primary-accent hover:bg-primary-gradient";
 
   const logo = [
-    "flex items-center gap-3 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap",
+    "flex items-center gap-3 mt-6 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap",
     isCollapsed ? "justify-center px-0" : "",
   ]
     .filter(Boolean)
@@ -69,49 +71,35 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
   const logoutBtnHover = "hover:text-danger-accent hover:bg-[rgba(239,68,68,0.1)]";
 
   return (
-    <aside className={[asideBase, asideCollapsed].filter(Boolean).join(" ")}>
-      <button
-        className={toggleBtn}
-        onClick={toggleSidebar}
-        aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
-      >
-        {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-      </button>
-
-      <div className={logo}>
-        <div className={logoIcon} />
-        {!isCollapsed && <span className={logoText}>StarLand AI</span>}
-      </div>
-
-      <nav className={nav}>
-        {navItems.map((item) => {
-          const isActive = pathname === item.path;
-          const ItemIcon = item.icon;
-          return (
-            <Link
-              key={item.path}
-              href={item.path}
-              title={isCollapsed ? item.label : ""}
-              className={[
-                navItemBase,
-                navItemCollapsed,
-                navItemHover,
-                isActive ? navItemActive : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-            >
-              <ItemIcon
-                size={20}
-                className={isActive ? "opacity-100" : "opacity-80"}
-              />
-              {!isCollapsed && <span>{item.label}</span>}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className={footer}>
+    <>
+      {/* 移动端 */}
+      <div className="relative lg:hidden">
+        <Menu onClick={toggleSidebar}
+          className={`${isCollapsed ? 'block' : 'hidden'} w-6 h-6 text-secondary hover:text-primary-accent hover:bg-primary-gradient absolute left-4 top-4 z-[100]`} />
+        {!isCollapsed && (<aside className="transition-[width] duration-300 ease-in-out px-6 border-r border-glass-border">
+          <div className={logo}>
+            <div className={logoIcon} />
+            {!isCollapsed && <span className={logoText}>StarLand AI</span>}
+          </div>
+          <nav className={"flex flex-col gap-2 flex-1"}>
+            {navItems.map((item) => {
+              const isActive = pathname === item.path;
+              const ItemIcon = item.icon;
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium transition-all duration-200 justify-start",
+                    isActive ? navItemActive : "",
+                  )}
+                >
+                  {!isCollapsed && <span>{item.label}</span>}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className={footer}>
         <button
           onClick={handleLogout}
           className={[logoutBtnBase, logoutBtnCollapsed, logoutBtnHover].join(" ")}
@@ -120,6 +108,49 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
           {!isCollapsed && <span>Sign Out</span>}
         </button>
       </div>
-    </aside>
+        </aside>)}
+      </div>
+      {/* pc端导航栏 */}
+      <aside className={"hidden lg:flex relative w-fit h-full flex-col bg-[rgba(15,23,42,0.4)] backdrop-blur-[20px] border-r border-glass-border z-50 p-6 transition-[width] duration-300 ease-in-out flex-shrink-0"}>
+        <PanelLeft className="absolute top-6 right-[-40px] w-6 h-6 bg-dark border border-glass-border rounded-full text-secondary cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] transition-all duration-200 hover:text-primary-accent hover:bg-primary-gradient"
+          onClick={toggleSidebar}
+        />
+        <div className={logo}>
+          <div className={logoIcon} />
+          {!isCollapsed && <span className={logoText}>StarLand AI</span>}
+        </div>
+        <nav className={nav}>
+          {navItems.map((item) => {
+            const isActive = pathname === item.path;
+            const ItemIcon = item.icon;
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 rounded-[8px] text-secondary font-medium transition-all duration-200 justify-start",
+                  isActive ? navItemActive : "",
+                )}
+              >
+                <ItemIcon
+                  size={20}
+                  className={isActive ? "opacity-100" : "opacity-80"}
+                />
+                {!isCollapsed && <span>{item.label}</span>}
+              </Link>
+            );
+          })}
+        </nav>
+        <div className={footer}>
+        <button
+          onClick={handleLogout}
+          className={[logoutBtnBase, logoutBtnCollapsed, logoutBtnHover].join(" ")}
+        >
+          <LogOut size={20} />
+          {!isCollapsed && <span>Sign Out</span>}
+        </button>
+      </div>
+      </aside>
+    </>
   );
 };

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "starland-ai",
   description: "starland-ai is a platform for AI-powered notes.",
   icons:{
-    icon:"/favicon.png",
+    icon:"/image/favicon.png",
   }
 };
 
