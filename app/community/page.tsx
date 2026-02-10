@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Layout } from "@/components/main/main";
 import { NoteCard } from "@/components/notes/notecard";
 import Input from "@/components/ui/input";
@@ -23,27 +23,27 @@ export default function CommunityPage() {
 
   return (
     <Layout>
-      <div className="mb-10 flex flex-col items-center text-center">
-        <h1 className="text-[2.5rem] font-bold m-0 text-primary">Community Library</h1>
-        <p className="text-secondary mt-2 mb-8 text-[1.1rem]">
+      <div className="my-10 lg:my-14 items-center text-center whitespace-nowrap">
+        <h1 className="text-3xl lg:text-4xl font-bold text-primary text-center">Community Library</h1>
+        <p className="text-secondary mt-2 mb-8 text-sm lg:text-lg">
           Discover and fork knowledge from others
         </p>
 
-        <div className="relative w-full max-w-[500px]">
+        <div className="relative w-fit mx-auto">
           <Search
             size={20}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted z-10 pointer-events-none -mt-3"
+            className="absolute left-4 top-1/2 text-muted z-10 pointer-events-none -mt-[10px]"
           />
           <Input
             placeholder="Search by title or tag..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-full"
+            className="px-12 lg:pr-20 rounded-full"
           />
         </div>
       </div>
 
-      <div className="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] gap-6">
+      <div className="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] gap-6 lg:gap-12">
         {filteredNotes.length > 0 ? (
           filteredNotes.map((note) => (
             <div key={note.id} className="h-full">
@@ -51,7 +51,7 @@ export default function CommunityPage() {
             </div>
           ))
         ) : (
-          <p className="col-[1/-1] text-center text-muted mt-8">
+          <p className="col-[1/-1] text-center text-muted mt-8 lg:mt-12">
             No results found for "{searchTerm}"
           </p>
         )}

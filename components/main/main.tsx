@@ -10,7 +10,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const toggleSidebar = () => setIsCollapsed((v) => !v);
     const closeSidebar = () => {
-    // 打开时才生效
+      // lg以上不处理
+    if(window.matchMedia("(min-width: 1024px)").matches)return ;
+      // 打开时才生效
     if(!isCollapsed) toggleSidebar();
   }
 
