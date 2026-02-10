@@ -23,10 +23,10 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <Card className="w-full max-w-[400px] flex flex-col items-center">
-        <h1 className="m-0 mb-2 text-[1.75rem] font-bold bg-clip-text text-transparent [background:var(--primary-gradient)]">
+        <h1 className="m-0 mb-2 text-[1.75rem] font-bold bg-clip-text text-transparent bg-primary-gradient">
           Create Account
         </h1>
-        <p className="m-0 mb-8 text-[var(--text-secondary)] text-center">
+        <p className="m-0 mb-8 text-secondary text-center">
           Join the Star Land AI community
         </p>
 
@@ -39,16 +39,16 @@ export default function RegisterPage() {
           <Button
             type="submit"
             isLoading={loading}
-            className="mt-4 w-full px-6 py-3 text-base [background:var(--primary-gradient)] text-white shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:translate-y-[-1px] hover:shadow-[0_6px_20px_0_rgba(139,92,246,0.23)] hover:opacity-90 rounded-[var(--radius-sm)]"
+            className="mt-4 w-full px-6 py-3 text-base bg-primary-gradient text-white shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:translate-y-[-1px] hover:shadow-[0_6px_20px_0_rgba(139,92,246,0.23)] hover:opacity-90 rounded-[8px]"
           >
             Sign Up
           </Button>
 
-          <p className="mt-6 text-center text-sm text-[var(--text-secondary)]">
+          <p className="mt-6 text-center text-sm text-secondary">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-[var(--primary-accent)] font-semibold hover:opacity-80 transition-opacity"
+              className="text-primary-accent font-semibold hover:opacity-80 transition-opacity"
             >
               Sign in
             </Link>

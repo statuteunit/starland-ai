@@ -18,9 +18,9 @@ export default function Button({
     "inline-flex items-center justify-center",
     "font-semibold",
     "transition-all duration-200",
-    "rounded-[var(--radius-sm)]",
+    "rounded-[8px]",
     "outline-none",
-    "[background:var(--primary-gradient)] text-white shadow-[0_4px_14px_0_rgba(139,92,246,0.39)]",
+    "bg-primary-gradient text-white shadow-[0_4px_14px_0_rgba(139,92,246,0.39)]",
     !isDisabled
       ? "hover:translate-y-[-1px] hover:shadow-[0_6px_20px_0_rgba(139,92,246,0.23)] hover:opacity-90"
       : "",
@@ -37,7 +37,7 @@ export default function Button({
   return (
     <button className={classes} disabled={isDisabled} {...props}>
       {isLoading ? (
-        <span className="w-4 h-4 border-2 border-[rgba(255,255,255,0.3)] rounded-full border-t-white animate-spin"></span>
+        <span className="w-4 h-4 border-2 border-white/30 rounded-full border-t-white animate-spin"></span>
       ) : (
         children
       )}

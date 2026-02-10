@@ -91,10 +91,10 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center py-12 px-4">
       <Card className="w-full max-w-[480px]">
-        <h1 className="text-2xl font-bold m-0 mb-2 text-[var(--text-primary)]">
+        <h1 className="text-2xl font-bold m-0 mb-2 text-primary">
           Welcome Back
         </h1>
-        <p className="m-0 mb-6 text-[var(--text-secondary)]">
+        <p className="m-0 mb-6 text-secondary">
           Sign in to continue to Star Land AI
         </p>
 
@@ -135,7 +135,7 @@ export default function LoginPage() {
                 type="button"
                 onClick={sendCode}
                 disabled={!email || countdown > 0 || sending}
-                className="px-4 py-2 text-sm [background:rgba(255,255,255,0.1)] text-[var(--text-primary)] backdrop-blur-[10px] border border-[rgba(255,255,255,0.1)] hover:[background:rgba(255,255,255,0.15)] rounded-[var(--radius-sm)]"
+                className="px-4 py-2 text-sm bg-white/10 text-primary backdrop-blur-[10px] border border-white/10 hover:bg-white/15 rounded-[8px]"
               >
                 {countdown > 0 ? `${countdown}s` : "发送验证码"}
               </Button>
@@ -143,7 +143,7 @@ export default function LoginPage() {
           )}
 
           <div className="flex items-center justify-between">
-            <label className="text-[var(--text-secondary)]">
+            <label className="text-secondary">
               <input
                 type="checkbox"
                 className="mr-2 align-middle"
@@ -155,7 +155,7 @@ export default function LoginPage() {
 
             <button
               type="button"
-              className="text-[var(--primary-accent)] hover:opacity-80 transition-opacity"
+              className="text-primary-accent hover:opacity-80 transition-opacity"
               onClick={() => setMode(mode === "password" ? "code" : "password")}
             >
               {mode === "password" ? "验证码登录" : "密码登录"}
@@ -165,16 +165,16 @@ export default function LoginPage() {
           <Button
             type="submit"
             isLoading={loading}
-            className="px-6 py-3 text-base [background:var(--primary-gradient)] text-white shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:translate-y-[-1px] hover:shadow-[0_6px_20px_0_rgba(139,92,246,0.23)] hover:opacity-90 rounded-[var(--radius-sm)]"
+            className="px-6 py-3 text-base bg-primary-gradient text-white shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:translate-y-[-1px] hover:shadow-[0_6px_20px_0_rgba(139,92,246,0.23)] hover:opacity-90 rounded-[8px]"
           >
             Sign In
           </Button>
 
-          <p className="m-0 text-[var(--text-secondary)] text-sm">
+          <p className="m-0 text-secondary text-sm">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className="text-[var(--primary-accent)] hover:opacity-80 transition-opacity"
+              className="text-primary-accent hover:opacity-80 transition-opacity"
             >
               Sign up
             </Link>

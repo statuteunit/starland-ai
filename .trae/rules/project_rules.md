@@ -10,7 +10,7 @@
 - React：19.2.3
 - React DOM：19.2.3
 - TypeScript：^5
-- Tailwind CSS：^4
+- Tailwind CSS：^3
 - Vitest：^4.0.18（用于测试）
 - Electron：^40.2.1（用于桌面应用打包）
 - 其他依赖：axios、lucide-react、react-markdown

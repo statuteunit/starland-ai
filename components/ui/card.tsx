@@ -1,26 +1,15 @@
 "use client";
 import React from "react";
+import { cn } from "@/utils/tools";
 
 type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
 };
 
 export default function Card({ children, className, ...props }: CardProps) {
-  const classes = [
-    "p-6",
-    "rounded-[var(--radius-md)]",
-    "transition-transform duration-200 ease-[cubic-bezier(.25,.1,.25,1)]",
-    "bg-[var(--glass-bg)]",
-    "backdrop-blur-[var(--blur-intensity)]",
-    "border border-[var(--glass-border)]",
-    "shadow-[var(--glass-shadow)]",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
 
   return (
-    <div className={classes} {...props}>
+    <div className={cn('p-6 rounded-[10px] transition-transform duration-200 ease-[cubic-bezier(.25,.1,.25,1)] bg-glass-bg backdrop-blur-[12px] border border-glass-border shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]', className)} {...props}>
       {children}
     </div>
   );

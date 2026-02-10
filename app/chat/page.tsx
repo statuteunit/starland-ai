@@ -70,7 +70,7 @@ export default function ChatPage() {
   return (
     <Layout>
       <div className="h-[calc(100vh-4rem)] flex flex-col">
-        <div className="flex-1 flex flex-col bg-[rgba(15,23,42,0.5)] rounded-[var(--radius-md)] border border-[var(--glass-border)] overflow-hidden">
+        <div className="flex-1 flex flex-col bg-[rgba(15,23,42,0.5)] rounded-[10px] border border-glass-border overflow-hidden">
           <div className="flex-1 p-6 overflow-y-auto flex flex-col">
             {messages.map((msg) => (
               <ChatBubble
@@ -82,7 +82,7 @@ export default function ChatPage() {
             ))}
 
             {loading && (
-              <div className="text-[var(--text-muted)] text-sm ml-12 animate-pulse">
+              <div className="text-muted text-sm ml-12 animate-pulse">
                 AI is thinking...
               </div>
             )}
@@ -91,7 +91,7 @@ export default function ChatPage() {
           </div>
 
           <form
-            className="p-4 sm:p-6 bg-[var(--glass-bg)] border-t border-[var(--glass-border)]"
+            className="p-4 sm:p-6 bg-glass-bg border-t border-glass-border"
             onSubmit={handleSend}
           >
             <div className="flex gap-4 items-start">
@@ -99,12 +99,12 @@ export default function ChatPage() {
                 placeholder="Type your question..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 bg-[rgba(0,0,0,0.2)]"
+                className="flex-1 bg-black/20"
               />
               <Button
                 type="submit"
                 disabled={loading}
-                className="p-3 mt-[2px] rounded-[var(--radius-sm)] [background:var(--primary-gradient)] text-white hover:translate-y-[-1px] hover:opacity-90"
+                className="p-3 mt-[2px] rounded-[8px] bg-primary-gradient text-white hover:translate-y-[-1px] hover:opacity-90"
               >
                 <Send size={20} />
               </Button>

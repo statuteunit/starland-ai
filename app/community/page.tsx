@@ -24,21 +24,21 @@ export default function CommunityPage() {
   return (
     <Layout>
       <div className="mb-10 flex flex-col items-center text-center">
-        <h1 className="text-[2.5rem] font-bold m-0 text-[var(--text-primary)]">Community Library</h1>
-        <p className="text-[var(--text-secondary)] mt-2 mb-8 text-[1.1rem]">
+        <h1 className="text-[2.5rem] font-bold m-0 text-primary">Community Library</h1>
+        <p className="text-secondary mt-2 mb-8 text-[1.1rem]">
           Discover and fork knowledge from others
         </p>
 
         <div className="relative w-full max-w-[500px]">
           <Search
             size={20}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] z-10 pointer-events-none -mt-3"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted z-10 pointer-events-none -mt-3"
           />
           <Input
             placeholder="Search by title or tag..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-full bg-[rgba(15,23,42,0.6)]"
+            className="pl-10 rounded-full"
           />
         </div>
       </div>
@@ -51,7 +51,7 @@ export default function CommunityPage() {
             </div>
           ))
         ) : (
-          <p className="col-[1/-1] text-center text-[var(--text-muted)] mt-8">
+          <p className="col-[1/-1] text-center text-muted mt-8">
             No results found for "{searchTerm}"
           </p>
         )}

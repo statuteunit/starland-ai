@@ -5,7 +5,6 @@
   "description": "starland-ai application",
   "author": "starLandAI",
   "main": "main.js",
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,9 +14,9 @@
     "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:tag": "node gitJS/tagTest.js",
-    "test": "npm run test:unit && npm run test:tag",
+    "test": "yarn run test:unit && yarn run test:tag",
     "electron:start": "cross-env NODE_ENV=development electron .",
-    "electron:build": "cross-env NODE_ENV=production && npm run build && electron-builder"
+    "electron:build": "cross-env NODE_ENV=production && yarn run build && electron-builder"
   },
   "build": {
     "appId": "com.test.vue",
@@ -43,11 +42,13 @@
   },
   "dependencies": {
     "axios": "^1.13.4",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-markdown": "^10.1.0",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

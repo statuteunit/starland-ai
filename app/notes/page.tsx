@@ -14,8 +14,8 @@ export default function NoteListPage() {
   return (
     <Layout>
       <div className="mb-8">
-        <h1 className="text-[2rem] font-bold m-0 text-[var(--text-primary)]">My Notes</h1>
-        <p className="text-[var(--text-secondary)] mt-2">{MOCK_NOTES.length} notes in your knowledge base</p>
+        <h1 className="text-[2rem] font-bold m-0 text-primary">My Notes</h1>
+        <p className="text-secondary mt-2">{MOCK_NOTES.length} notes in your knowledge base</p>
       </div>
 
       <div className="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] gap-6">

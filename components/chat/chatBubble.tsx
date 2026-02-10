@@ -22,18 +22,18 @@ export default function ChatBubble({ content, role, timestamp }: ChatBubbleProps
   const avatar = [
     "w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0",
     isUser
-      ? "bg-[var(--bg-dark-secondary)] text-[var(--text-secondary)]"
-      : "bg-[var(--primary-accent)] text-white",
+      ? "bg-dark-secondary text-secondary"
+      : "bg-primary-accent text-white",
   ].join(" ");
 
   const bubble = [
     "relative max-w-[70%] p-4 rounded-[20px]",
     isUser
-      ? "rounded-tr-[4px] [background:var(--primary-gradient)] text-white"
-      : "rounded-tl-[4px] bg-[var(--bg-dark-secondary)] text-[var(--text-primary)] border border-[rgba(255,255,255,0.05)]",
+      ? "rounded-tr-[4px] bg-primary-gradient text-white"
+      : "rounded-tl-[4px] bg-dark-secondary text-primary border border-[rgba(255,255,255,0.05)]",
   ].join(" ");
 
-  const timestampBase = "absolute bottom-[-1.2rem] text-[0.7rem] text-[var(--text-muted)]";
+  const timestampBase = "absolute bottom-[-1.2rem] text-[0.7rem] text-muted";
   const timestampPos = isUser ? "right-2" : "left-2";
 
   return (
