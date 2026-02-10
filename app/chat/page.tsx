@@ -21,6 +21,27 @@ export default function ChatPage() {
       content:
         "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
       role: "assistant",
+      timestamp: "1741896723895",
+    },
+    {
+      id: "2",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "user",
+      timestamp: "1741896723895",
+    },
+    {
+      id: "3",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "assistant",
+      timestamp: "1741896723999",
+    },
+    {
+      id: "4",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "assistant",
       timestamp: "Now",
     },
   ]);
@@ -69,10 +90,10 @@ export default function ChatPage() {
 
   return (
     <Layout>
-      <div className="h-[calc(100vh-4rem)] flex flex-col">
-        <div className="flex-1 flex flex-col bg-[rgba(15,23,42,0.5)] rounded-[10px] border border-glass-border overflow-hidden">
-          <div className="flex-1 p-6 overflow-y-auto flex flex-col">
-            {messages.map((msg) => (
+      <div className="flex flex-col">
+        <div className="flex flex-col bg-[rgba(15,23,42,0.5)] rounded-[10px] border border-glass-border overflow-hidden">
+          <div className="p-6 overflow-y-auto flex flex-col">
+            {messages.map((msg) => ( 
               <ChatBubble
                 key={msg.id}
                 content={msg.content}
@@ -90,8 +111,8 @@ export default function ChatPage() {
             <div ref={messagesEndRef} />
           </div>
 
-          <form
-            className="p-4 sm:p-6 bg-glass-bg border-t border-glass-border"
+          <div
+            className="mt-[200px] p-4 lg:p-6 bg-glass-bg border-t border-glass-border"
             onSubmit={handleSend}
           >
             <div className="flex gap-4 items-start">
@@ -106,10 +127,10 @@ export default function ChatPage() {
                 disabled={loading}
                 className="p-3 mt-[2px] rounded-[8px] bg-primary-gradient text-white hover:translate-y-[-1px] hover:opacity-90"
               >
-                <Send size={20} />
+                <Send size={16} />
               </Button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </Layout>
