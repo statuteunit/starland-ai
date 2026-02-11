@@ -11,12 +11,12 @@ const MOCK_NOTES = [
 export default function NoteListPage() {
   return (
     <Layout>
-      <div className="mb-8">
-        <h1 className="text-[2rem] font-bold m-0 text-primary">My Notes</h1>
-        <p className="text-secondary mt-2">{MOCK_NOTES.length} notes in your knowledge base</p>
+      <div className="mb-8 lg:mb-12">
+        <h1 className="text-3xl lg:text-4xl font-bold text-primary">My Notes</h1>
+        <p className="text-secondary mt-2 text-base lg:text-lg lg:mt-4">{MOCK_NOTES.length} notes in your knowledge base</p>
       </div>
 
-      <div className="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] gap-6">
+      <div className="grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] gap-6 lg:gap-12">
         {MOCK_NOTES.map((note) => (
           <NoteCard key={note.id} {...note} />
         ))}

@@ -38,7 +38,7 @@ export default function CommunityPage() {
             placeholder="Search by title or tag..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-12 lg:pr-20 rounded-full"
+            className="px-10 lg:px-12 rounded-full"
           />
         </div>
       </div>
