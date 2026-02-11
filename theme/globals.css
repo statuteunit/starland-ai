@@ -59,7 +59,7 @@
 }
 
 ::-webkit-scrollbar-track-piece {
-	background-color: #f8f8f8;
+	background-color: #0f172a;
 }
 
 /* 滚动条的设置 */
@@ -83,7 +83,7 @@
 	}
 
 	::-webkit-scrollbar-track-piece {
-		background-color: #f8f8f8;
+		background-color: #0f172a;
 	}
 
 	/* 滚动条的设置 */

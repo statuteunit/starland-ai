@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Layout } from "@/components/main/main";
 import { Flashcard } from "@/components/notes/flashcard";
 import Button from "@/components/ui/button";

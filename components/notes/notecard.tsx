@@ -1,5 +1,4 @@
-"use client";
-import React from "react";
+"use client"
 import { useRouter } from "next/navigation";
 import { FileText, Calendar } from "lucide-react";
 

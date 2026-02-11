@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 import { Sidebar } from "./sidebar";
 
 type LayoutProps = {
@@ -7,7 +7,7 @@ type LayoutProps = {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const toggleSidebar = () => setIsCollapsed((v) => !v);
     const closeSidebar = () => {
       // lg以上不处理

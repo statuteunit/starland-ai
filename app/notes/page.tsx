@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import { Layout } from "@/components/main/main";
 import { NoteCard } from "@/components/notes/notecard";
 

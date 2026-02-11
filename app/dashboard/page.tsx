@@ -1,4 +1,3 @@
-"use client";
 import { Layout } from "@/components/main/main";
 import Upload from "@/components/ui/upload";
 import Card from "@/components/ui/card";

@@ -21,39 +21,89 @@ export default function ChatPage() {
       content:
         "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
       role: "assistant",
-      timestamp: "1741896723895",
+      timestamp: "now",
     },
     {
       id: "2",
       content:
         "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
       role: "user",
-      timestamp: "1741896723895",
+      timestamp: "now",
     },
     {
       id: "3",
       content:
         "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
       role: "assistant",
-      timestamp: "1741896723999",
+      timestamp: "now",
     },
     {
       id: "4",
       content:
         "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "user",
+      timestamp: "Now",
+    },
+    {
+      id: "5",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
       role: "assistant",
+      timestamp: "Now",
+    },
+    {
+      id: "6",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "user",
+      timestamp: "Now",
+    },
+    {
+      id: "7",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "assistant",
+      timestamp: "Now",
+    },
+    {
+      id: "8",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "user",
+      timestamp: "Now",
+    },
+    {
+      id: "9",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "assistant",
+      timestamp: "Now",
+    },
+    {
+      id: "10",
+      content:
+        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
+      role: "user",
       timestamp: "Now",
     },
   ]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isNearBottomRef = useRef(true);
+  const pendingScrollToBottomRef = useRef(true);
+  const restoreScrollRef = useRef<{ prevScrollHeight: number } | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    if (restoreScrollRef.current) return;
+    if (pendingScrollToBottomRef.current || isNearBottomRef.current) {
+      scrollToBottom();
+    }
+    pendingScrollToBottomRef.current = false;
+  }, [messages.length]);
 
   const handleSend = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -86,14 +136,14 @@ export default function ChatPage() {
       setMessages((prev) => [...prev, aiMsg]);
       setLoading(false);
     }, 1500);
+    pendingScrollToBottomRef.current = true;
   };
 
   return (
     <Layout>
-      <div className="flex flex-col">
-        <div className="flex flex-col bg-[rgba(15,23,42,0.5)] rounded-[10px] border border-glass-border overflow-hidden">
-          <div className="p-6 overflow-y-auto flex flex-col">
-            {messages.map((msg) => ( 
+      <div className="w-fit lg:w-full">
+        <div className="bg-[rgba(15,23,42,0.5)] rounded-[10px] lg:rounded-[20px] border border-glass-border overflow-hidden py-4 px-2 lg:p-6 h-[82vh] lg:h-[75vh] overflow-y-auto">
+            {messages.map((msg) => (
               <ChatBubble
                 key={msg.id}
                 content={msg.content}
@@ -103,19 +153,18 @@ export default function ChatPage() {
             ))}
 
             {loading && (
-              <div className="text-muted text-sm ml-12 animate-pulse">
+              <div className="text-muted text-sm lg:text-base ml-14 lg:ml-20 animate-pulse">
                 AI is thinking...
               </div>
             )}
 
             <div ref={messagesEndRef} />
-          </div>
 
-          <div
-            className="mt-[200px] p-4 lg:p-6 bg-glass-bg border-t border-glass-border"
+          <form
+            className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 bg-glass-bg border-t border-glass-border"
             onSubmit={handleSend}
           >
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 lg:gap-6 items-center">
               <Input
                 placeholder="Type your question..."
                 value={input}
@@ -125,12 +174,12 @@ export default function ChatPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="p-3 mt-[2px] rounded-[8px] bg-primary-gradient text-white hover:translate-y-[-1px] hover:opacity-90"
+                className="p-3 lg:p-4 rounded-[8px] lg:rounded-[12px] bg-primary-gradient text-white hover:translate-y-[-1px] hover:opacity-90"
               >
-                <Send size={16} />
+                <Send size={20} />
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </Layout>

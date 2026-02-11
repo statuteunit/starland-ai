@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -83,7 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
         <PanelLeft className="absolute top-6 right-[-40px] w-6 h-6 bg-dark border border-glass-border rounded-full text-secondary cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] hover:text-primary-accent hover:bg-primary-gradient"
           onClick={toggleSidebar}
         />
-        <div className={`flex items-center gap-3 mt-6 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap ${isCollapsed ? "justify-center px-0" : ""}`}>
+        <div className={`flex items-center gap-3 mb-10 px-2 justify-start overflow-hidden whitespace-nowrap ${isCollapsed ? "justify-center px-0" : ""}`}>
           <div className={"w-8 h-8 bg-primary-gradient rounded-[8px] shadow-[0_4px_12px_rgba(139,92,246,0.3)]"} />
           {!isCollapsed && <span className={"text-xl font-bold text-primary bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent"}>StarLand AI</span>}
         </div>
