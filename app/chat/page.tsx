@@ -13,6 +13,19 @@ type Message = {
   timestamp: string;
 };
 
+type UploadedItem = {
+  id: string;
+  name: string;
+  size: number;
+  mime: string;
+  kind: "image" | "pdf" | "doc";
+  url: string;
+  createdAt: string;
+};
+
+const PENDING_CHAT_MESSAGE_KEY = "starland:pending-chat-message";
+const PENDING_CHAT_FILES_KEY = "starland:pending-chat-files";
+
 export default function ChatPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([
@@ -43,49 +56,7 @@ export default function ChatPage() {
         "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
       role: "user",
       timestamp: "Now",
-    },
-    {
-      id: "5",
-      content:
-        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
-      role: "assistant",
-      timestamp: "Now",
-    },
-    {
-      id: "6",
-      content:
-        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
-      role: "user",
-      timestamp: "Now",
-    },
-    {
-      id: "7",
-      content:
-        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
-      role: "assistant",
-      timestamp: "Now",
-    },
-    {
-      id: "8",
-      content:
-        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
-      role: "user",
-      timestamp: "Now",
-    },
-    {
-      id: "9",
-      content:
-        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
-      role: "assistant",
-      timestamp: "Now",
-    },
-    {
-      id: "10",
-      content:
-        "Hello! I am your AI learning assistant. Ask me anything about your notes or upload a document to get started.",
-      role: "user",
-      timestamp: "Now",
-    },
+    }
   ]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -105,13 +76,13 @@ export default function ChatPage() {
     pendingScrollToBottomRef.current = false;
   }, [messages.length]);
 
-  const handleSend = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!input.trim()) return;
+  const sendText = (text: string) => {
+    const content = text.trim();
+    if (!content) return;
 
     const userMsg: Message = {
       id: Date.now().toString(),
-      content: input,
+      content,
       role: "user",
       timestamp: new Date().toLocaleTimeString([], {
         hour: "2-digit",
@@ -139,26 +110,58 @@ export default function ChatPage() {
     pendingScrollToBottomRef.current = true;
   };
 
+  useEffect(() => {
+    const pendingText = (sessionStorage.getItem(PENDING_CHAT_MESSAGE_KEY) ?? "").trim();
+
+    let files: UploadedItem[] = [];
+    try {
+      const raw = sessionStorage.getItem(PENDING_CHAT_FILES_KEY);
+      files = raw ? (JSON.parse(raw) as UploadedItem[]) : [];
+    } catch {
+      files = [];
+    }
+
+    if (!pendingText && files.length === 0) return;
+
+    sessionStorage.removeItem(PENDING_CHAT_MESSAGE_KEY);
+    sessionStorage.removeItem(PENDING_CHAT_FILES_KEY);
+
+    const fileBlock =
+      files.length > 0
+        ? `\n\n附件：\n${files
+          .map((f) => `- ${f.name} (${f.kind}) ${f.url}`)
+          .join("\n")}`
+        : "";
+
+    const payload = `${pendingText || "我上传了文件，请结合附件回答。"}${fileBlock}`.trim();
+    sendText(payload);
+  }, []);
+
+  const handleSend = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    sendText(input);
+  };
+
   return (
     <Layout>
       <div className="w-fit lg:w-full">
         <div className="bg-[rgba(15,23,42,0.5)] rounded-[10px] lg:rounded-[20px] border border-glass-border overflow-hidden py-4 px-2 lg:p-6 h-[82vh] lg:h-[75vh] overflow-y-auto">
-            {messages.map((msg) => (
-              <ChatBubble
-                key={msg.id}
-                content={msg.content}
-                role={msg.role}
-                timestamp={msg.timestamp}
-              />
-            ))}
+          {messages.map((msg) => (
+            <ChatBubble
+              key={msg.id}
+              content={msg.content}
+              role={msg.role}
+              timestamp={msg.timestamp}
+            />
+          ))}
 
-            {loading && (
-              <div className="text-muted text-sm lg:text-base ml-14 lg:ml-20 animate-pulse">
-                AI is thinking...
-              </div>
-            )}
+          {loading && (
+            <div className="text-muted text-sm lg:text-base ml-14 lg:ml-20 animate-pulse">
+              AI is thinking...
+            </div>
+          )}
 
-            <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
 
           <form
             className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 bg-glass-bg border-t border-glass-border"
